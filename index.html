@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <title>Add a GeoJSON line</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://unpkg.com/cheap-ruler@2.5.1/cheap-ruler.js'></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    p {
+      margin-bottom: 70vh;
+      margin-top: 30vh;
+      position: relative;
+      z-index: 100;
+      background: transparent;
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <div id='map'></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYmVybmFyZG9zcCIsImEiOiJjamkyMmhqdjAwZ284M2txcHpqYjUwam91In0.RiploEl5Mm6bjXhPZbN6XQ';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v9',
+      center: [-46.75060272216797, -23.52590357692768],
+      zoom: 10.5,
+      scrollZoom: false,
+      interactive: false,
+    });
+
+    // var coords = [
+    //     [-46.75060272216797, -23.52590357692768],
+    //     [-46.79746627807617, -23.521653901839],
+    //     [-46.80725097656249, -23.51488561753448],
+    //     [-46.83540344238281, -23.51016335267616],
+    //     [-46.85325622558594, -23.509848528998415],
+    //     [-46.86183929443359, -23.500875737870913],
+    //     [-46.87419891357422, -23.486392049163435],
+    //     [-46.87986373901367, -23.470962021922077],
+    //     [-46.887245178222656, -23.467025501562375],
+    //     [-46.902523040771484, -23.466395647408074],
+    //     [-46.910762786865234, -23.45600261994149],
+    //     [-46.90870285034179, -23.437891602560512],
+    //     [-46.910247802734375, -23.434584105235725],
+    //     [-46.917972564697266, -23.43064650051141],
+    //     [-46.93376541137695, -23.4309615132054],
+    //     [-46.943206787109375, -23.42544868270144],
+    //     [-46.93754196166992, -23.417257767298373],
+    //     [-46.945953369140625, -23.40181966363743],
+    //     [-46.956939697265625, -23.376453156574538],
+    //     [-46.97050094604492, -23.378186426542253],
+    //     [-46.98921203613281, -23.387482669515563],
+    //     [-47.00191497802734, -23.391894217625286],
+    //     [-47.01255798339844, -23.409223876864424],
+    //     [-47.02474594116211, -23.387482669515563],
+    //     [-47.031097412109375, -23.38165289847824],
+    //     [-47.03144073486328, -23.400401788327656],
+    //     [-47.04174041748047, -23.386222200214853],
+    //     [-47.04139709472656, -23.352815395762992],
+    //     [-47.08860397338867, -23.35328819226038],
+    //     [-47.09306716918945, -23.37093805589721],
+    //     [-47.104225158691406, -23.370622900357386],
+    //     [-47.10062026977539, -23.38653731866428],
+    //     [-47.08036422729492, -23.382755847806568],
+    //     [-47.08345413208008, -23.401504581547517],
+    //     [-47.12087631225586, -23.40181966363743],
+    //     [-47.1177864074707, -23.376138014145305],
+    //     [-47.131690979003906, -23.38039237371952],
+    //     [-47.14164733886719, -23.34997858140504],
+    //     [-47.170658111572266, -23.336581694452747],
+    //     [-47.17254638671875, -23.325863211741144],
+    //     [-47.161216735839844, -23.318296703316737],
+    //     [-47.16705322265625, -23.29685592396819],
+    //     [-47.18559265136719, -23.283611363274844],
+    //     [-47.235374450683594, -23.283296000529734],
+    //     [-47.260780334472656, -23.2609033368794],
+    //     [-47.253570556640625, -23.24923242912762],
+    //     [-47.29991912841797, -23.20790289956655],
+    //     [-47.38815307617187, -23.15204040440058],
+    //     [-47.44720458984375, -23.20001413130303],
+    //     [-47.53337860107422, -23.197489627126863],
+    //     [-47.564964294433594, -23.22147049159095],
+    //     [-47.66590118408203, -23.106259979652933],
+    //     [-47.783660888671875, -23.037402105360147],
+    //     [-47.81902313232422, -22.956180406841067],
+    //     [-47.942962646484375, -22.923614814481596]
+    // ];
+    var coords = [
+      [-46.7413330078125, -23.531254824436434],
+      [-46.8841552734375, -23.46828520085324],
+      [-47.0269775390625, -23.407806080861413],
+      [-47.164306640625, -23.32712425459329],
+      [-47.28790283203125, -23.23882237936205],
+      [-47.43072509765624, -23.195911787809486],
+      [-47.60101318359375, -23.147936590271478],
+      [-47.71911621093749, -23.059516273509303],
+      [-47.82623291015625, -22.96345126497353],
+      [-47.95257568359375, -22.91286328803374]
+    ];
+
+
+    map.on('load', function() {
+
+      var ruler = cheapRuler(map.getCenter().lat, 'meters');
+
+      map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": {
+          "type": "geojson",
+          "data": {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+              "type": "LineString",
+              "coordinates": coords
+            }
+          }
+        },
+        "layout": {
+          "line-join": "round",
+          "line-cap": "round"
+        },
+        "paint": {
+          "line-color": "rgba(0,0,0,0.1)",
+          "line-width": 1
+        }
+      });
+
+      function mapRange(num, in_min, in_max, out_min, out_max) {
+        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+      }
+      window.addEventListener("scroll", function(event) {
+        var scroll = this.scrollY;
+        console.log(scroll);
+
+        // discontinuous, follows points in line
+        // var i = Math.round(mapRange(scroll, 0, document.body.clientHeight, 0, coords.length - 1));
+        // var bearing = ruler.bearing(coords[i], coords[i + 1]);
+        // var distance = ruler.distance(coords[i], coords[i + 1]);
+        // var duration =  distance / 0.1;
+        // map.easeTo({
+        //   center: coords[i],
+        //   zoom: 12,
+        //   bearing: bearing,
+        //   pitch: 20,
+        //   duration: duration,
+        // })
+
+        // continuous
+        var bearing = ruler.bearing(coords[0], coords[coords.length - 1]);
+        var distance = ruler.distance(coords[0], coords[coords.length - 1]);
+        var duration = distance / 0.1;
+        var partialDistance = Math.round(mapRange(scroll, 0, document.body.clientHeight, 0, distance));
+        var point = ruler.destination(coords[0], partialDistance, bearing);
+        console.log(partialDistance);
+        map.jumpTo({
+          center: point,
+          zoom: 10.5,
+          bearing: bearing,
+          pitch: 20,
+          duration: 0,
+        })
+
+        // TODO:
+        // // continuous with breakpoints
+        // var i = Math.round(mapRange(scroll, 0, document.body.clientHeight, 0, coords.length - 1));
+        // var bearing = ruler.bearing(coords[i], coords[i + 1]);
+        // var distance = ruler.distance(coords[i], coords[i + 1]);
+        // var point = ruler.destination(coords[0], partialDistance, bearing);
+        // var duration =  distance / 0.1;
+        // map.easeTo({
+        //   center: coords[i],
+        //   zoom: 12,
+        //   bearing: bearing,
+        //   pitch: 20,
+        //   duration: duration,
+        // })
+      });
+
+      var i = 0;
+
+      function followLine() {
+        setTimeout(function() {
+          map.jumpTo({
+            center: coords[i],
+            zoom: 15,
+            // bearing: 20,
+            pitch: 20,
+            duration: 500,
+          })
+          i++;
+          if (i < coords.length) {
+            followLine();
+          }
+        }, 500)
+      }
+
+      // followLine();
+
+    });
+  </script>
+
+</body>
+
+</html>

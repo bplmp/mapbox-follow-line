@@ -3,7 +3,7 @@
 
 <head>
   <meta charset='utf-8' />
-  <title>Add a GeoJSON line</title>
+  <title>Follow a line</title>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
@@ -47,15 +47,6 @@
     dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   <div id='map'></div>
   <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYmVybmFyZG9zcCIsImEiOiJjamkyMmhqdjAwZ284M2txcHpqYjUwam91In0.RiploEl5Mm6bjXhPZbN6XQ';
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9',
-      center: [-46.75060272216797, -23.52590357692768],
-      zoom: 10.5,
-      scrollZoom: false,
-      interactive: false,
-    });
 
     // var coords = [
     //     [-46.75060272216797, -23.52590357692768],
@@ -114,19 +105,36 @@
     //     [-47.81902313232422, -22.956180406841067],
     //     [-47.942962646484375, -22.923614814481596]
     // ];
-    var coords = [
-      [-46.7413330078125, -23.531254824436434],
-      [-46.8841552734375, -23.46828520085324],
-      [-47.0269775390625, -23.407806080861413],
-      [-47.164306640625, -23.32712425459329],
-      [-47.28790283203125, -23.23882237936205],
-      [-47.43072509765624, -23.195911787809486],
-      [-47.60101318359375, -23.147936590271478],
-      [-47.71911621093749, -23.059516273509303],
-      [-47.82623291015625, -22.96345126497353],
-      [-47.95257568359375, -22.91286328803374]
-    ];
 
+    // // BR
+    // var coords = [
+    //   [-46.7413330078125, -23.531254824436434],
+    //   [-46.8841552734375, -23.46828520085324],
+    //   [-47.0269775390625, -23.407806080861413],
+    //   [-47.164306640625, -23.32712425459329],
+    //   [-47.28790283203125, -23.23882237936205],
+    //   [-47.43072509765624, -23.195911787809486],
+    //   [-47.60101318359375, -23.147936590271478],
+    //   [-47.71911621093749, -23.059516273509303],
+    //   [-47.82623291015625, -22.96345126497353],
+    //   [-47.95257568359375, -22.91286328803374]
+    // ];
+
+    var coords = [ [ -89.386388888589039, 29.235555530779948 ], [ -89.385277770517845, 29.237777753170164 ], [ -89.386111107722712, 29.238333309470057 ], [ -89.389486296270988, 29.247121337290384 ], [ -89.389481269759784, 29.248021468540927 ], [ -89.38950683945987, 29.249258270901983 ], [ -89.389518853881057, 29.25035413355123 ], [ -89.389561564481568, 29.251335685862273 ], [ -89.389704105351754, 29.252174662262902 ], [ -89.389826839636726, 29.252981513782885 ], [ -89.390122643312793, 29.25406230393757 ], [ -89.391154601874106, 29.256073935277911 ], [ -89.392076599964582, 29.257350288714772 ], [ -89.393611109628026, 29.258611087818572 ], [ -89.394999994205477, 29.262499972388198 ], [ -89.434166665960845, 29.274166639973888 ], [ -89.439444440213336, 29.273888863893184 ], [ -89.441111106289682, 29.274444418789393 ], [ -89.639783301771971, 29.339721067373485 ], [ -89.765065359482662, 29.422219646175481 ], [ -89.772009936115808, 29.424164119008115 ], [ -89.817010849372053, 29.442497005835975 ], [ -90.06396086249849, 29.535272249998641 ], [ -90.096461562124261, 29.559716038578287 ], [ -90.333967534532363, 29.632491970261338 ], [ -90.33841207622126, 29.634714120497545 ], [ -90.339801035445831, 29.635547397261796 ], [ -90.339802524766938, 29.635491680378358 ], [ -90.842316406178895, 29.906037956158169 ], [ -90.886753688088177, 29.935386982410108 ], [ -90.942347775157032, 30.064283430364991 ], [ -90.941693974692214, 30.064752251001423 ] ];
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYmVybmFyZG9zcCIsImEiOiJjamkyMmhqdjAwZ284M2txcHpqYjUwam91In0.RiploEl5Mm6bjXhPZbN6XQ';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-v9',
+      // style: 'mapbox://styles/mapbox/satellite-streets-v9',
+      // style: 'mapbox://styles/mapbox/streets-v9',
+      center: coords[0],
+      zoom: 10.5,
+      scrollZoom: false,
+      interactive: false,
+      pitch: 20,
+      bearing: 310,
+    });
 
     map.on('load', function() {
 
@@ -151,8 +159,8 @@
           "line-cap": "round"
         },
         "paint": {
-          "line-color": "rgba(0,0,0,0.1)",
-          "line-width": 1
+          "line-color": "rgba(235,64,52,0.5)",
+          "line-width": 4
         }
       });
 
@@ -163,14 +171,15 @@
         var scroll = this.scrollY;
         console.log(scroll);
 
-        // discontinuous, follows points in line
+        // // discontinuous, follows points in line
         // var i = Math.round(mapRange(scroll, 0, document.body.clientHeight, 0, coords.length - 1));
         // var bearing = ruler.bearing(coords[i], coords[i + 1]);
         // var distance = ruler.distance(coords[i], coords[i + 1]);
-        // var duration =  distance / 0.1;
+        // var duration =  distance / 5;
+        // console.log(duration);
         // map.easeTo({
         //   center: coords[i],
-        //   zoom: 12,
+        //   zoom: 10.5,
         //   bearing: bearing,
         //   pitch: 20,
         //   duration: duration,
@@ -228,6 +237,13 @@
       // followLine();
 
     });
+
+    // This prevents the page from scrolling down to where it was previously.
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    // This is needed if the user scrolls down during page load and you want to make sure the page is scrolled to the top once it's fully loaded. This has Cross-browser support.
+    window.scrollTo(0,0);
   </script>
 
 </body>
